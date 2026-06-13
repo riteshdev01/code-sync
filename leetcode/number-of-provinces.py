@@ -1,39 +1,42 @@
 class Solution {
+
     public int findCircleNum(int[][] isConnected) {
+
         int n = isConnected.length;
-        int cnt = 0;
-        boolean[] visited = new boolean[n + 1];
-        List<List<Integer>> adj = new ArrayList<>();
+        boolean[] visited = new boolean[n];
+
+        int count = 0;
 
         for (int i = 0; i < n; i++) {
-            adj.add(new ArrayList<>());
-        }
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (isConnected[i][j] == 1 && i != j) {
-                    adj.get(i).add(j);
-                }
-            }
-        }
-
-        for (int i = 0; i < n; i++) {
             if (!visited[i]) {
-                cnt++;
-                helper(adj, i, visited);
+                count++;
+                dfs(isConnected, visited, i);
             }
+
         }
 
-        return cnt;
+        return count;
     }
 
-    void helper(List<List<Integer>> adj, int curr, boolean[] visited) {
-        visited[curr] = true;
+    void bfs(int[][] isConnected,
+            boolean[] visited,
+            int city) {
 
-        for (int n : adj.get(curr)) {
-            if (!visited[n]) {
-                visited[n] = true;
-                helper(adj, n, visited);
+        visited[city] = true;
+
+        Queue <Integer> q = new LinkedList<>();
+
+        q.add(city);
+
+        while(!q.isEmpty()){
+            int curr = q.poll();
+
+            for(int j = 0 ;  j < isConnected.length ; j++){
+                if( isConnected[curr][j] == 1 && visited[j] == false){
+                    visited[j] = true;
+                    q.add(j);
+                }
             }
         }
 
