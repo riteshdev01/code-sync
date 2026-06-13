@@ -11,7 +11,7 @@ class Solution {
 
             if (!visited[i]) {
                 count++;
-                dfs(isConnected, visited, i);
+                bfs(isConnected, visited, i);
             }
 
         }
