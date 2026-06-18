@@ -48,14 +48,13 @@ class Solution {
             Triplet t = q.poll();
             int node = t.node, c = t.cost;
 
-            if (t.stop == k + 1)
+            if (t.stop > k )
                 continue;
 
             for (Pair p : adj.get(node)) {
                 int totalcost = c + p.cost;
 
-                if (totalcost > ans[p.node])
-                    continue;
+                
 
                 if (totalcost < ans[p.node]) {
                     ans[p.node] = totalcost;
@@ -64,7 +63,7 @@ class Solution {
             }
         }
 
-        return ans[dst];
+        return ( ans[dst] == Integer.MAX_VALUE)  ?  -1 :  ans[dst];
 
     }
 }
